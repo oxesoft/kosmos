@@ -1,5 +1,6 @@
-JAVAC      := javac
-JAVA       := java
+JAVA_HOME  ?= $(shell /usr/libexec/java_home 2>/dev/null || echo "/Users/oxesoft/Library/Java/JavaVirtualMachines/jbr-21.0.11/Contents/Home")
+JAVAC      := $(if $(wildcard $(JAVA_HOME)/bin/javac),$(JAVA_HOME)/bin/javac,javac)
+JAVA       := $(if $(wildcard $(JAVA_HOME)/bin/java),$(JAVA_HOME)/bin/java,java)
 JFLAGS     := -encoding UTF-8
 SRC_DIR    := src
 BIN_DIR    := bin
