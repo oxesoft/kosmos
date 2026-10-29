@@ -80,17 +80,17 @@ public class MenuConsole {
         boolean executando = true;
         while (executando) {
             exibirCabecalhoPrincipal();
-            System.out.println(" [1]  💵 REGISTRAR RECEBIMENTO DE ALUGUEL (Formulário do Modal)");
-            System.out.println(" [2]  🔍 BUSCA UNIFICADA (Imóveis, Inquilinos e Recibos)");
-            System.out.println(" [3]  💰 MOVIMENTO DE CAIXA (Extrato, Lançamento Manual, Estorno)");
-            System.out.println(" [4]  🔒 CONFERIR E FECHAR O DIA (Conferência com Justificativa e RDD)");
-            System.out.println(" [5]  📅 ABRIR O MÊS SEGUINTE & REAJUSTAR ALUGUEL (Competência e Reajustes)");
-            System.out.println(" [6]  🛠️  SOLICITAÇÕES DE REPARO (Nova Solicitação e Mudança de Status)");
-            System.out.println(" [7]  👥 SUPPLY (Funcionários e Prestadores Terceirizados)");
-            System.out.println(" [8]  🏢 IMÓVEIS, INQUILINOS & CONTRATOS (Cadastros e Locações)");
-            System.out.println(" [9]  📜 RECIBOS, PRESTAÇÃO DE CONTAS & AUDITORIA");
-            System.out.println(" [10] 👤 USUÁRIOS & ACESSO (Troca de Usuário, Login, Convites)");
-            System.out.println(" [0]  🚪 SAIR");
+            System.out.println(" [1]  REGISTRAR RECEBIMENTO DE ALUGUEL (Formulário do Modal)");
+            System.out.println(" [2]  BUSCA UNIFICADA (Imóveis, Inquilinos e Recibos)");
+            System.out.println(" [3]  MOVIMENTO DE CAIXA (Extrato, Lançamento Manual, Estorno)");
+            System.out.println(" [4]  CONFERIR E FECHAR O DIA (Conferência com Justificativa e RDD)");
+            System.out.println(" [5]  ABRIR O MÊS SEGUINTE & REAJUSTAR ALUGUEL (Competência e Reajustes)");
+            System.out.println(" [6]  SOLICITAÇÕES DE REPARO (Nova Solicitação e Mudança de Status)");
+            System.out.println(" [7]  SUPPLY (Funcionários e Prestadores Terceirizados)");
+            System.out.println(" [8]  IMÓVEIS, INQUILINOS & CONTRATOS (Cadastros e Locações)");
+            System.out.println(" [9]  RECIBOS, PRESTAÇÃO DE CONTAS & AUDITORIA");
+            System.out.println(" [10] USUÁRIOS & ACESSO (Troca de Usuário, Login, Convites)");
+            System.out.println(" [0]  SAIR");
             System.out.println("================================================================================");
             System.out.print("Escolha uma opção: ");
 
@@ -126,12 +126,12 @@ public class MenuConsole {
         String perfil = (usuarioLogado instanceof kosmos.modelo.Gestor) ? "Gestor" : "Funcionária";
 
         System.out.println("\n================================================================================");
-        System.out.println("                     KOSMOS · GESTÃO IMOBILIÁRIA E CAIXA                        ");
-        System.out.println("                  Fundação Manuel Cruz · Sistema em Java (POO)                  ");
+        System.out.println("                     KOSMOS - GESTÃO IMOBILIÁRIA E CAIXA                        ");
+        System.out.println("                  Fundação Manuel Cruz - Sistema em Java (POO)                  ");
         System.out.println("================================================================================");
-        System.out.printf("👤 Sessão atual: %s (%s) | E-mail: %s%n",
+        System.out.printf("Sessão atual: %s (%s) | E-mail: %s%n",
                 usuarioLogado.getNome(), perfil, usuarioLogado.getEmail());
-        System.out.printf("💵 Caixa de Hoje: R$ %,.2f [%s] | 🏦 Saldo Banco: R$ %,.2f%n",
+        System.out.printf("Caixa de Hoje: R$ %,.2f [%s] | Saldo Banco: R$ %,.2f%n",
                 caixa.saldo(), statusCaixa, repositorio.getSaldoBanco());
         System.out.println("--------------------------------------------------------------------------------");
     }
@@ -222,7 +222,7 @@ public class MenuConsole {
             double encargos = Recibo.calcularEncargos(contratoEscolhido.getValorAluguel(), diasAtraso);
             double totalRecibo = contratoEscolhido.getValorAluguel() + encargos;
             valorTotalGeral += totalRecibo;
-            System.out.printf("  • %02d/%d | Vencimento: %s | Atraso: %d dias | Encargos: R$ %,.2f | Total: R$ %,.2f%n",
+            System.out.printf("  - %02d/%d | Vencimento: %s | Atraso: %d dias | Encargos: R$ %,.2f | Total: R$ %,.2f%n",
                     comp.getMes(), comp.getAno(), vencimento.format(FORMATO_DATA), diasAtraso, encargos, totalRecibo);
         }
         System.out.printf("VALOR TOTAL CONSOLIDADO: R$ %,.2f%n", valorTotalGeral);
@@ -240,12 +240,12 @@ public class MenuConsole {
             List<Recibo> recibosGerados = recebimentoService.registrar(
                     contratoEscolhido, compsEscolhidas, forma, usuarioLogado, dataPagamento);
 
-            System.out.println("\n✅ RECEBIMENTO(S) REGISTRADO(S) COM SUCESSO!");
+            System.out.println("\n[SUCESSO] Recebimento(s) registrado(s) com sucesso!");
             for (Recibo r : recibosGerados) {
                 System.out.println("\n" + r.gerarDocumento());
             }
         } catch (Exception e) {
-            System.out.println("\n❌ ERRO ao registrar recebimento: " + e.getMessage());
+            System.out.println("\n[ERRO] Falha ao registrar recebimento: " + e.getMessage());
         }
         pausar();
     }
@@ -345,12 +345,12 @@ public class MenuConsole {
             LancamentoManual lancamento = new LancamentoManual(valor, tipo, historico, usuarioLogado);
             repositorio.getCaixaAtual().lancar(lancamento);
             repositorio.registrarAuditoria(lancamento);
-            System.out.println("✅ Lançamento efetuado com sucesso! Novo saldo do caixa: R$ "
+            System.out.println("[SUCESSO] Lançamento efetuado com sucesso! Novo saldo do caixa: R$ "
                     + String.format("%,.2f", repositorio.getCaixaAtual().saldo()));
         } catch (DiaFechadoException e) {
-            System.out.println("❌ Bloqueado pela Regra 5: " + e.getMessage());
+            System.out.println("[BLOQUEADO] Regra 5: " + e.getMessage());
         } catch (Exception e) {
-            System.out.println("❌ Erro: " + e.getMessage());
+            System.out.println("[ERRO] " + e.getMessage());
         }
         pausar();
     }
@@ -379,13 +379,13 @@ public class MenuConsole {
 
         try {
             Estorno estorno = caixaService.estornar(alvo, justificativa, usuarioLogado);
-            System.out.println("✅ Estorno realizado com sucesso pelo Gestor!");
+            System.out.println("[SUCESSO] Estorno realizado com sucesso pelo Gestor!");
             System.out.println(estorno.gerarDocumento());
             System.out.printf("Novo saldo do caixa: R$ %,.2f%n", caixa.saldo());
         } catch (IllegalArgumentException e) {
-            System.out.println("❌ Bloqueado: " + e.getMessage());
+            System.out.println("[BLOQUEADO] " + e.getMessage());
         } catch (Exception e) {
-            System.out.println("❌ Erro: " + e.getMessage());
+            System.out.println("[ERRO] " + e.getMessage());
         }
         pausar();
     }
@@ -412,7 +412,7 @@ public class MenuConsole {
 
         String justificativa = "";
         if (Math.abs(contado - saldoEsperado) >= 0.01) {
-            System.out.printf("⚠️ Houve divergência de R$ %,.2f entre o contado e o esperado!%n", contado - saldoEsperado);
+            System.out.printf("[ALERTA] Houve divergência de R$ %,.2f entre o contado e o esperado!%n", contado - saldoEsperado);
             System.out.print("Regra 6: Digite a justificativa obrigatória da divergência: ");
             justificativa = scanner.nextLine().trim();
         }
@@ -427,7 +427,7 @@ public class MenuConsole {
 
         try {
             caixaService.conferirEFechar(contado, justificativa, usuarioLogado);
-            System.out.println("\n✅ CAIXA CONFERIDO E FECHADO COM SUCESSO!");
+            System.out.println("\n[SUCESSO] Caixa conferido e fechado com sucesso!");
             System.out.println("=== RESUMO DO DIA (RDD) ===");
             System.out.printf("Saldo de Abertura : R$ %,.2f%n", caixa.getSaldoAnterior());
             System.out.printf("Saldo Calculado   : R$ %,.2f%n", saldoEsperado);
@@ -444,7 +444,7 @@ public class MenuConsole {
                 System.out.println("Novo caixa aberto com saldo inicial de R$ " + String.format("%,.2f", contado));
             }
         } catch (Exception e) {
-            System.out.println("❌ Erro ao fechar caixa: " + e.getMessage());
+            System.out.println("[ERRO] Erro ao fechar caixa: " + e.getMessage());
         }
         pausar();
     }
@@ -486,16 +486,16 @@ public class MenuConsole {
 
         try {
             competenciaService.abrir(novaComp, reajustes, usuarioLogado);
-            System.out.printf("%n✅ Mês %02d/%d aberto com sucesso!%n", mes, ano);
+            System.out.printf("%n[SUCESSO] Mês %02d/%d aberto com sucesso!%n", mes, ano);
             if (!reajustes.isEmpty()) {
                 System.out.println("Reajustes registrados no histórico de contratos (Regra 7):");
                 for (Contrato c : reajustes.keySet()) {
-                    System.out.println(" • " + c.getImovel().getEndereco() + " -> Novo aluguel: R$ "
+                    System.out.println(" - " + c.getImovel().getEndereco() + " -> Novo aluguel: R$ "
                             + String.format("%,.2f", c.getValorAluguel()));
                 }
             }
         } catch (Exception e) {
-            System.out.println("❌ Erro ao abrir mês: " + e.getMessage());
+            System.out.println("[ERRO] Erro ao abrir mês: " + e.getMessage());
         }
         pausar();
     }
@@ -536,7 +536,7 @@ public class MenuConsole {
                 Solicitacao s = sols.get(i);
                 System.out.printf(" [%d] %s%n", i + 1, s);
                 for (String h : s.getHistoricoMudancas()) {
-                    System.out.println("      ↳ " + h);
+                    System.out.println("      > " + h);
                 }
             }
         }
@@ -586,9 +586,9 @@ public class MenuConsole {
         try {
             Solicitacao nova = new Solicitacao(imovel, servico, responsavel);
             repositorio.adicionarSolicitacao(nova);
-            System.out.println("✅ Solicitação criada com sucesso! Status inicial: " + nova.getStatus().getDescricao());
+            System.out.println("[SUCESSO] Solicitação criada com sucesso! Status inicial: " + nova.getStatus().getDescricao());
         } catch (Exception e) {
-            System.out.println("❌ Erro ao criar solicitação: " + e.getMessage());
+            System.out.println("[ERRO] Erro ao criar solicitação: " + e.getMessage());
         }
         pausar();
     }
@@ -623,9 +623,9 @@ public class MenuConsole {
 
         try {
             sol.mudarStatus(novoStatus, usuarioLogado);
-            System.out.println("✅ Status atualizado e registrado no histórico!");
+            System.out.println("[SUCESSO] Status atualizado e registrado no histórico!");
         } catch (Exception e) {
-            System.out.println("❌ Erro: " + e.getMessage());
+            System.out.println("[ERRO] " + e.getMessage());
         }
         pausar();
     }
@@ -690,9 +690,9 @@ public class MenuConsole {
         try {
             Prestador novo = new Prestador(nome, doc, tipo, vinculo, servico, StatusPrestador.ATIVO);
             repositorio.adicionarPrestador(novo);
-            System.out.println("✅ Prestador cadastrado com sucesso no Supply!");
+            System.out.println("[SUCESSO] Prestador cadastrado com sucesso no Supply!");
         } catch (Exception e) {
-            System.out.println("❌ Erro ao cadastrar prestador: " + e.getMessage());
+            System.out.println("[ERRO] Erro ao cadastrar prestador: " + e.getMessage());
         }
         pausar();
     }
@@ -716,7 +716,7 @@ public class MenuConsole {
         };
 
         p.setStatus(novo);
-        System.out.println("✅ Status atualizado com sucesso!");
+        System.out.println("[SUCESSO] Status atualizado com sucesso!");
         pausar();
     }
 
@@ -790,9 +790,9 @@ public class MenuConsole {
                 default -> novo = new Terreno(end, "vago");
             }
             repositorio.adicionarImovel(novo);
-            System.out.println("✅ Imóvel cadastrado com sucesso! (" + novo.getTipo() + ")");
+            System.out.println("[SUCESSO] Imóvel cadastrado com sucesso! (" + novo.getTipo() + ")");
         } catch (Exception e) {
-            System.out.println("❌ Erro ao cadastrar imóvel: " + e.getMessage());
+            System.out.println("[ERRO] Erro ao cadastrar imóvel: " + e.getMessage());
         }
         pausar();
     }
@@ -820,9 +820,9 @@ public class MenuConsole {
         try {
             Inquilino novo = new Inquilino(nome, cpf, tel);
             repositorio.adicionarInquilino(novo);
-            System.out.println("✅ Inquilino cadastrado com sucesso!");
+            System.out.println("[SUCESSO] Inquilino cadastrado com sucesso!");
         } catch (Exception e) {
-            System.out.println("❌ Erro ao cadastrar inquilino: " + e.getMessage());
+            System.out.println("[ERRO] Erro ao cadastrar inquilino: " + e.getMessage());
         }
         pausar();
     }
@@ -877,9 +877,9 @@ public class MenuConsole {
         try {
             Contrato contrato = new Contrato(imovel, inquilino, aluguel, diaVenc, vigenteAte);
             repositorio.adicionarContrato(contrato);
-            System.out.println("✅ Contrato de locação criado com sucesso!");
+            System.out.println("[SUCESSO] Contrato de locação criado com sucesso!");
         } catch (Exception e) {
-            System.out.println("❌ Erro ao criar contrato: " + e.getMessage());
+            System.out.println("[ERRO] Erro ao criar contrato: " + e.getMessage());
         }
         pausar();
     }
@@ -956,7 +956,7 @@ public class MenuConsole {
         try {
             r.alterarReciboEmitido();
         } catch (ReciboImutavelException e) {
-            System.out.println("🛡️ [PROTEÇÃO CONFIRMADA]: " + e.getMessage());
+            System.out.println("[PROTEÇÃO CONFIRMADA] " + e.getMessage());
             System.out.println("Regra 1 comprovada: recibos não se editam, correções devem ser feitas com Estorno!");
         }
         pausar();
@@ -1033,7 +1033,7 @@ public class MenuConsole {
         }
         int idx = lerInteiro("Escolha: ", 1, users.size());
         this.usuarioLogado = users.get(idx - 1);
-        System.out.println("✅ Sessão alterada para: " + usuarioLogado.getNome());
+        System.out.println("[SUCESSO] Sessão alterada para: " + usuarioLogado.getNome());
         pausar();
     }
 
@@ -1047,9 +1047,9 @@ public class MenuConsole {
         try {
             Usuario u = authService.entrar(login, senha);
             this.usuarioLogado = u;
-            System.out.println("✅ Login realizado com sucesso! Bem-vindo(a), " + u.getNome());
+            System.out.println("[SUCESSO] Login realizado com sucesso! Bem-vindo(a), " + u.getNome());
         } catch (Exception e) {
-            System.out.println("❌ Falha na autenticação: " + e.getMessage());
+            System.out.println("[ERRO] Falha na autenticação: " + e.getMessage());
         }
         pausar();
     }
@@ -1059,7 +1059,7 @@ public class MenuConsole {
         System.out.println("Códigos de convite disponíveis no sistema:");
         for (Convite c : repositorio.getConvites()) {
             if (!c.isUsado()) {
-                System.out.println(" • " + c.getCodigo() + " (Função: " + c.getFuncao() + ")");
+                System.out.println(" - " + c.getCodigo() + " (Função: " + c.getFuncao() + ")");
             }
         }
 
@@ -1076,20 +1076,20 @@ public class MenuConsole {
 
         try {
             Usuario novo = authService.cadastrar(cod, nome, cpf, email, senha);
-            System.out.println("✅ Conta criada com sucesso para " + novo.getNome() + "!");
+            System.out.println("[SUCESSO] Conta criada com sucesso para " + novo.getNome() + "!");
             System.out.print("Deseja alternar a sessão para este novo usuário agora? (S/N): ");
             if (scanner.nextLine().trim().equalsIgnoreCase("s")) {
                 this.usuarioLogado = novo;
             }
         } catch (Exception e) {
-            System.out.println("❌ Erro ao criar conta: " + e.getMessage());
+            System.out.println("[ERRO] Erro ao criar conta: " + e.getMessage());
         }
         pausar();
     }
 
     private void gerarConvite() {
         if (!usuarioLogado.pode(Acao.GERENCIAR_PESSOAS)) {
-            System.out.println("❌ Permissão negada: apenas o Gestor pode gerar códigos de convite.");
+            System.out.println("[ERRO] Permissão negada: apenas o Gestor pode gerar códigos de convite.");
             pausar();
             return;
         }
@@ -1104,9 +1104,9 @@ public class MenuConsole {
         try {
             Convite c = new Convite(cod, funcao);
             repositorio.adicionarConvite(c);
-            System.out.println("✅ Código de convite '" + cod + "' gerado com sucesso para a função " + funcao);
+            System.out.println("[SUCESSO] Código de convite '" + cod + "' gerado com sucesso para a função " + funcao);
         } catch (Exception e) {
-            System.out.println("❌ Erro: " + e.getMessage());
+            System.out.println("[ERRO] " + e.getMessage());
         }
         pausar();
     }
